@@ -94,8 +94,11 @@ $brand-highlight:               $pink !default;
 $brand-highlight-strong:        #d81b60 !default;
 $brand-highlight-text:          $white !default;
 
-// Dark surfaces (sidebar, inverted panels)
-$dark-bg:                       #131313 !default;
+// Dark surfaces (sidebar, inverted panels).
+// Built from the primary hue rather than a neutral black, so the rail reads as
+// part of the palette instead of a slab dropped onto it, and so it follows if
+// the primary colour is ever changed.
+$dark-bg:                       hsl(color.channel($blue, 'hue', $space: hsl), 18%, 12%) !default;
 $dark-text:                     #c9ccd4 !default;
 $dark-text-strong:              $white !default;
 $dark-border:                   rgba($white, .08) !default;
@@ -597,6 +600,7 @@ $responsive-header-height:      54px !default;
 $flyout-menu-bg:                $dark-bg !default;
 $flyout-menu-text:              $dark-text !default;
 $flyout-menu-link:              $dark-text-strong !default;
+$flyout-menu-link-hover:        $brand-highlight !default;
 $flyout-menu-link-active-bg:    rgba($white, .11) !default;
 $flyout-menu-link-active:       $dark-text-strong !default;
 $flyout-menu-header-bg:         $dark-bg !default;

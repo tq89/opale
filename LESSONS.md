@@ -136,6 +136,22 @@ Token đã áp dụng:
   reset `margin`, `padding`, `border` nhưng không reset `background`, nên nền
   tối vẫn dính lại trên những trang không có sidebar.
 
+- **Đảo nền sáng thành nền tối thì phải đặt lại màu link chung, không chỉ vài
+  selector.** Flyout menu trên mobile được JS chép nội dung sidebar vào lúc
+  chạy, cộng thêm link người dùng — không selector nào trong
+  `_responsive.scss` phủ hết. Chúng giữ `$link-color` mặc định (`#3146c5`) và
+  chỉ đạt **2,49:1** trên nền tối, tức chìm hẳn vào nền. Quy tắc: mỗi khi một
+  vùng chuyển sang nền tối, đặt ngay `a { color: … }` cho cả vùng đó, đừng chờ
+  liệt kê đủ từng thành phần. Cũng lưu ý màu chỉ dùng được ở một phía: `#f161a1`
+  chỉ đạt 3,02:1 trên nền trắng nhưng đạt 5,69:1 trên nền tối, nên nó hợp làm
+  màu hover trong sidebar dù không hợp trên thân trang.
+
+- **Màu trung tính nên lấy sắc độ từ màu chủ đạo.** Sidebar ban đầu dùng
+  `#131313` đen trung tính, đặt cạnh bảng màu xanh `#3146c5` thì trông như một
+  mảng rời rạc dán vào. Nay `$dark-bg` được tính bằng
+  `hsl(color.channel($blue, 'hue', …), 18%, 12%)` — cùng sắc độ 231,5 với màu
+  chủ đạo, và tự đổi theo nếu sau này thay màu thương hiệu.
+
 - **Theme thay `application.css` của core, nên phải tự mang theo Open Color.**
   Redmine 7 tô nhiều thành phần core bằng biến `var(--oc-*)`, ví dụ
   `.task_late { background: var(--oc-red-5) ...; border: 1px solid var(--oc-red-5) }`.
