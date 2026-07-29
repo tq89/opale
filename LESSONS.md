@@ -3,6 +3,9 @@
 Tài liệu ghi nhận các quyết định kỹ thuật và bài học của dự án theme Opale.
 Rà soát tài liệu này trước khi bắt đầu một phiên làm việc mới.
 
+> Tài liệu phải nằm ở thư mục gốc của repo, cạnh `README.md`. Lý do ở mục
+> "Không tạo thư mục con mới trong repo theme" phần Bài học.
+
 ## Baseline đã kiểm chứng
 
 Môi trường và trạng thái gốc của repo, đã xác minh bằng lệnh thực tế:
@@ -73,6 +76,14 @@ Các ứng viên bị loại và lý do:
 | `#b71c1c` (Material Red 800) | 6.57:1 | Không thuộc chuẩn an toàn nào |
 
 ## Bài học
+
+- **Không tạo thư mục con mới trong repo theme.** Redmine cài theme bằng cách
+  đặt nguyên repo vào `{redmine}/public/themes/opale`, và asset pipeline
+  precompile **các thư mục con** của theme. Đặt tài liệu ở `docs/lessons.md`
+  khiến `rake assets:precompile` sinh ra `themes/opale/lessons-<hash>.md`, tức
+  tài liệu nội bộ bị publish thành asset công khai. Các file ở thư mục gốc
+  (`README.md`, `AUTHORS.md`, `CONTRIBUTING.md`) không bị quét, nên tài liệu
+  mới phải đặt cạnh chúng ở gốc repo. Đã chuyển thành `LESSONS.md`.
 
 - **Kiểm tra dư địa saturation trước khi chọn màu chủ đạo.** Theme dùng
   `color.adjust($saturation: 25%)` ở `$input-border-focus` và
