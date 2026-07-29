@@ -477,6 +477,7 @@ $btn-font-weight:               normal !default;
 $btn-padding-vertical:          3px !default;
 $btn-padding-horizontal:        12px !default;
 $btn-padding-horizontal-small:  8px !default;
+$btn-border-radius:             $border-radius-pill !default;
 
 $btn-link-color:                $link-color !default;
 $btn-link-bg:                   $body-bg !default;
@@ -542,7 +543,7 @@ $input-bg-disabled:             $gray-300 !default;
 $input-color:                   $text-color !default;
 $input-border:                  $gray-500 !default;
 
-$input-border-radius:           $border-radius-small !default;
+$input-border-radius:           $border-radius-base !default;
 $input-border-radius-large:     $border-radius-large !default;
 
 $input-border-focus:            color.adjust($brand-primary, $saturation: 25%) !default;
