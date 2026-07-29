@@ -136,6 +136,25 @@ Token đã áp dụng:
   reset `margin`, `padding`, `border` nhưng không reset `background`, nên nền
   tối vẫn dính lại trên những trang không có sidebar.
 
+- **Theme thay `application.css` của core, nên phải tự mang theo Open Color.**
+  Redmine 7 tô nhiều thành phần core bằng biến `var(--oc-*)`, ví dụ
+  `.task_late { background: var(--oc-red-5) ...; border: 1px solid var(--oc-red-5) }`.
+  Các biến này nằm trong `open-color.css`, được nhập vào `application.css` của
+  core — mà theme thì **thay thế** file đó. Kết quả: biến không tồn tại,
+  `var(--oc-red-5)` rỗng, cả khai báo `background`/`border` bị trình duyệt loại
+  bỏ, và thanh Gantt trở nên **trong suốt, không viền** — trông như biểu đồ mất
+  thanh tiến độ. Đã chép nguyên bản Open Color v1.9.1 vào
+  `vendor/_open-color.scss` (264 biến, +6,9KB).
+  Dấu hiệu nhận biết: xem `<head>` của trang, nếu có `gantt.css`,
+  `dropdown.css`, `context_menu.css` của core mà **không** có `open-color.css`
+  thì mọi `var(--oc-*)` đều hỏng.
+
+- **Redmine 7 nạp một số CSS core SAU stylesheet của theme.** Trang Gantt nạp
+  `gantt.css` sau `themes/opale/application.css`, nên với cùng độ đặc hiệu thì
+  core thắng. Các rule `.task_todo` / `.task_late` / `.task_done` của theme vì
+  vậy không có hiệu lực trên Redmine 7 (chúng vẫn phục vụ Redmine 5/6). Muốn
+  ghi đè phải tăng độ đặc hiệu, đừng chỉ sửa giá trị.
+
 - **Đọc log `assets:precompile` để tìm tên asset đúng, đừng đoán.** Theme tham
   chiếu `ui-icons_222222_256x240.png`, nhưng jQuery UI 1.13 đi kèm Redmine 7 đã
   bỏ sprite đó. Log precompile liệt kê đúng những file thực có
