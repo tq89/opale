@@ -136,6 +136,15 @@ Token đã áp dụng:
   reset `margin`, `padding`, `border` nhưng không reset `background`, nên nền
   tối vẫn dính lại trên những trang không có sidebar.
 
+- **Đọc log `assets:precompile` để tìm tên asset đúng, đừng đoán.** Theme tham
+  chiếu `ui-icons_222222_256x240.png`, nhưng jQuery UI 1.13 đi kèm Redmine 7 đã
+  bỏ sprite đó. Log precompile liệt kê đúng những file thực có
+  (`ffffff`, `444444`, `777777`, `cc0000`, `555555`, `777620`), và cảnh báo chỉ
+  nhắc `222222` chứ không nhắc `ffffff` — tức lỗi nằm ở **tên file**, không phải
+  ở đường dẫn tương đối như suy đoán ban đầu. Đã đổi sang `444444`.
+  Quy tắc: mỗi dòng `Unable to resolve` cần đối chiếu với các dòng `Writing`
+  cùng thư mục trước khi kết luận.
+
 - **Lệnh lint của dự án từng bỏ sót 16/58 file.** `stylelint src/sass/**/*.scss`
   không được đặt trong dấu nháy, nên shell (không bật `globstar`) rút `**`
   thành `*` và chỉ quét đúng một cấp thư mục con — bỏ qua cả `_variables.scss`,
