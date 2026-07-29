@@ -218,3 +218,11 @@ Token đã áp dụng:
   việc gỡ `icon-*` khỏi core, thoạt nhìn giống lỗi tương thích nghiêm trọng,
   nhưng kiểm tra `components/_icons.scss` cho thấy theme tự cung cấp các class
   này. Luôn đối chiếu changelog với mã nguồn thực tế trước khi kết luận.
+
+- **Điều khiển trên header phải tự khai màu, đừng dựa vào kế thừa.** Ở chế độ
+  mobile, tên dự án nằm trong `span.drdn-trigger` — cách `#header` bốn cấp
+  (`#header > #quick-search > #project-jump > span`) — và nút menu là một thẻ
+  `a` rỗng chỉ vẽ bằng icon. Cả hai đều không khai `color`, nên chỉ cần một mắt
+  xích trong chuỗi kế thừa bị đặt màu sáng là chúng biến mất trên nền header
+  trắng. Cách chẩn đoán nhanh: mở DevTools, chọn phần tử, xem panel Styles —
+  nếu không có dòng `color` nào của chính nó thì nó đang sống nhờ tổ tiên.

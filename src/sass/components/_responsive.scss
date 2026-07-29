@@ -90,6 +90,12 @@ body {
           padding: 0;
           background-color: transparent;
           box-shadow: none;
+
+          // It is a bare span sitting four levels below #header, so it lives on
+          // whatever colour that chain hands down. On the mobile header it is
+          // the only thing naming the current project, and it goes invisible
+          // the moment any ancestor is set light. It states its own colour.
+          color: variables.$header-text;
           font-size: variables.$font-size-large;
           font-weight: variables.$font-weight-normal;
           line-height: variables.$responsive-header-height;
@@ -138,9 +144,16 @@ body {
     .mobile-toggle-button {
       width: variables.$responsive-header-height;
       height: variables.$responsive-header-height;
+
+      // Same reasoning as the trigger next to it: the button is an empty anchor
+      // drawn entirely by its icon, so it has to name a colour that contrasts
+      // with the header rather than take one from the link palette.
+      color: variables.$header-link;
       line-height: variables.$responsive-header-height;
 
+      &:hover,
       &:focus {
+        color: variables.$header-link;
         text-decoration: none;
       }
     }
