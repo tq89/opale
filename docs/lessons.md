@@ -45,8 +45,52 @@ phiên bản trình biên dịch. Đây là cơ chế kiểm chứng chính củ
 | Thay physical properties bằng logical properties, gỡ `rtl.css` | **Cần lưu ý.** Theme còn 408 khai báo `margin/padding/border-left|right` và 153 `float/text-align: left\|right`, chỉ 13 logical property. Theme sẽ không tự hoạt động đúng ở bố cục RTL. |
 | Tích hợp Open Color, quản lý màu tập trung bằng CSS variables | **Cần lưu ý.** Opale ghi đè bằng giá trị màu cứng sinh từ Sass, không dùng cơ chế biến CSS mới. Muốn dùng chung cơ chế của core thì phải chuyển đổi có chủ đích. |
 
+## Quyết định: màu chủ đạo PCCC
+
+`$brand-primary` đổi từ `#628db6` sang **`#af2b1e` (RAL 3000 Flame Red)**.
+
+Căn cứ lựa chọn:
+
+- **Đúng chuẩn ngành.** RAL 3000 (*Feuerrot*) là màu tiêu chuẩn cho phương tiện
+  và thiết bị PCCC. TCVN 4879:1989 (ISO 6309:1987) quy định dấu hiệu an toàn
+  PCCC dùng nền đỏ với ký hiệu trắng; hình dạng và màu tuân theo TCVN 5053:1990.
+- **Khả năng tiếp cận.** Tương phản với chữ trắng đạt **6.59:1**, vượt WCAG AA
+  (4.5:1) và gần AAA (7:1). Màu cũ `#628db6` chỉ đạt **3.50:1**, tức dưới chuẩn
+  AA — thay đổi này đồng thời sửa một lỗi tiếp cận có sẵn.
+- **Tách bạch ngữ nghĩa.** Đủ trầm để không lẫn với `$red: #e5123d`, vốn đang
+  gánh ngữ nghĩa danger/error/priority khẩn (`$brand-danger`, `$link-hover-color`,
+  `$flash-error-bg`, `$sidebar-link-active-side`). Hai sắc đỏ phục vụ hai vai trò
+  khác nhau và phải phân biệt được.
+
+Các ứng viên bị loại và lý do:
+
+| Ứng viên | Tương phản | Lý do loại |
+|---|---|---|
+| `#c8102e` (ISO safety red) | 5.88:1 | `color.adjust($saturation: 25%)` đẩy saturation lên **110.18%**, vượt gamut |
+| `#cc0605` (RAL 3020) | — | `shade()` sinh saturation **105.22%**, vượt gamut |
+| `#a52019` (RAL 3001) | 7.45:1 | Đạt yêu cầu nhưng RAL 3000 sát định danh thiết bị PCCC hơn |
+| `#9b2423` | 7.86:1 | Ngả nâu, giảm nhận diện đỏ PCCC |
+| `#b71c1c` (Material Red 800) | 6.57:1 | Không thuộc chuẩn an toàn nào |
+
 ## Bài học
 
+- **Kiểm tra dư địa saturation trước khi chọn màu chủ đạo.** Theme dùng
+  `color.adjust($saturation: 25%)` ở `$input-border-focus` và
+  `$bubble-target-border`, còn `shade()` tự cộng saturation cho các nấc tối.
+  Màu đầu vào đã bão hòa cao sẽ vượt 100% và khiến Sass xuất `hsl()` thay vì
+  `rgb()`/hex như phần còn lại của theme. Ngưỡng an toàn: saturation đầu vào
+  dưới ~75%. Cách kiểm chứng đã dùng:
+  `npx sass --load-path=src/sass probe.scss` với `@use "variables" with (...)`
+  để lấy giá trị thật từ chính trình biên dịch, thay vì tính tay.
+- **Đối chiếu trước/sau bằng tập hợp màu, không đọc diff của CSS đã nén.**
+  `stylesheets/application.css` là một dòng duy nhất nên `git diff` vô dụng.
+  Cách hiệu quả: trích `#hex` và `rgb()` từ `git show HEAD:<file>` và từ bản mới,
+  `sort -u` rồi `comm` hai tập. Một thay đổi đúng phạm vi phải cho kết quả cân
+  bằng 1:1 — lần này đúng 1 hex và 8 rgb đổi chỗ, tổng số màu giữ nguyên 29.
+- **Phân biệt lỗi có sẵn với lỗi mới sinh.** CSS chứa nhiều `hsl()` có
+  saturation > 100% (từ `$orange`, `$teal`, `$green`, `$pink`). Đối chiếu với
+  `git show HEAD:` cho thấy chúng tồn tại từ trước và không liên quan tới thay
+  đổi này. Luôn so với baseline trước khi kết luận mình gây ra lỗi.
 - Không suy đoán rủi ro tương thích từ changelog. Changelog Redmine 7.0.0 nêu
   việc gỡ `icon-*` khỏi core, thoạt nhìn giống lỗi tương thích nghiêm trọng,
   nhưng kiểm tra `components/_icons.scss` cho thấy theme tự cung cấp các class
