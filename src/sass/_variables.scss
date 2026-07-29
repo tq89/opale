@@ -572,15 +572,18 @@ $check-list-offset-top:         $input-padding-vertical + 1px;
 
 // Top
 
-$top-menu-bg:                   shade($brand-primary, 700) !default;
-$top-menu-text:                 shade($brand-primary, 100) !default;
-$top-menu-link:                 shade($brand-primary, 100) !default;
-$top-menu-link-hover:           shade($brand-primary, 50) !default;
+// The reference keeps the whole top strip white and lets the dark sidebar carry
+// the contrast, so the top menu and the header share the surface colour instead
+// of the brand colour.
+$top-menu-bg:                   $surface-bg !default;
+$top-menu-text:                 $text-muted !default;
+$top-menu-link:                 $text-color !default;
+$top-menu-link-hover:           $brand-primary !default;
 
-$header-bg:                     $brand-primary !default;
-$header-text:                   $brand-text !default;
-$header-link:                   $brand-text !default;
-$header-root:                   $brand-accent !default;
+$header-bg:                     $surface-bg !default;
+$header-text:                   $text-color !default;
+$header-link:                   $text-color !default;
+$header-root:                   $text-muted !default;
 $header-padding-vertical:       10px !default;
 $header-padding-horizontal:     $padding-side !default;
 $header-title-size:             $font-size-h3 !default;
@@ -588,20 +591,24 @@ $header-title-line-height:      $line-height-computed * 1.5 !default;
 
 $responsive-header-height:      54px !default;
 
-$flyout-menu-bg:                shade($header-bg, 700) !default;
-$flyout-menu-text:              $white !default;
-$flyout-menu-link:              $white !default;
-$flyout-menu-link-active-bg:    shade($header-bg, 50) !default;
-$flyout-menu-link-active:       $text-color !default;
-$flyout-menu-header-bg:         shade($header-bg, 800) !default;
-$flyout-menu-header-border:     shade($header-bg, 800) !default;
-$flyout-menu-header-text:       $white !default;
+// The responsive flyout is the mobile counterpart of the sidebar, so it takes
+// the same dark surface rather than deriving from the now-white header.
+$flyout-menu-bg:                $dark-bg !default;
+$flyout-menu-text:              $dark-text !default;
+$flyout-menu-link:              $dark-text-strong !default;
+$flyout-menu-link-active-bg:    rgba($white, .11) !default;
+$flyout-menu-link-active:       $dark-text-strong !default;
+$flyout-menu-header-bg:         $dark-bg !default;
+$flyout-menu-header-border:     $dark-border !default;
+$flyout-menu-header-text:       $dark-text-strong !default;
 
-$quick-search-label-bg:         $top-menu-bg !default;
+// The search sits on the white header now, so the label needs the page grey to
+// stay visible, and both halves round into a single pill.
+$quick-search-label-bg:         $body-bg !default;
 $quick-search-width:            200px !default;
 $quick-search-border:           $input-border !default;
-$quick-search-border-focus:     shade($header-bg, 800) !default;
-$quick-search-border-radius:    0 $border-radius-small $border-radius-small 0 !default;
+$quick-search-border-focus:     $brand-primary !default;
+$quick-search-border-radius:    0 $border-radius-pill $border-radius-pill 0 !default;
 $quick-search-box-width:        300px !default;
 $quick-search-dropdown-bg:      $body-bg !default;
 $quick-search-dropdown-border:  $gray-400 !default;
@@ -612,12 +619,12 @@ $logo-position-horizontal:      $header-padding-horizontal !default;
 $logo-position-vertical:        center !default;
 $logo-space:                    $header-padding-vertical !default;
 
-$main-menu-bg:                  $gray-100 !default;
+$main-menu-bg:                  $surface-bg !default;
 $main-menu-bg-hover:            $gray-100 !default;
 $main-menu-bg-active:           transparent !default;
-$main-menu-link:                $gray-900 !default;
-$main-menu-link-active:         $black !default;
-$main-menu-border:              $gray-400 !default;
+$main-menu-link:                $text-muted !default;
+$main-menu-link-active:         $brand-primary !default;
+$main-menu-border:              $gray-300 !default;
 $main-menu-shadow-hover:        $gray-600 !default;
 $main-menu-shadow-width:        3px !default;
 $main-menu-shadow-active:       $brand-primary !default;
@@ -667,12 +674,16 @@ $sidebar-width:                 270px !default;
 $sidebar-padding-vertical:      $padding-base-vertical !default;
 $sidebar-padding-horizontal:    $padding-side !default;
 $sidebar-width-computed:        $sidebar-width - ($sidebar-padding-horizontal * 2) - 1px !default;
-$sidebar-link-hover-bg:         $gray-200 !default;
-$sidebar-link-hover-text:       $gray-900 !default;
-$sidebar-link-active-bg:        $body-bg !default;
-$sidebar-link-active-border:    $gray-400 !default;
-$sidebar-link-active-side:      $red !default;
-$sidebar-link-active-text:      $gray-950 !default;
+$sidebar-bg:                    $dark-bg !default;
+$sidebar-text:                  $dark-text !default;
+$sidebar-heading-text:          $dark-text-strong !default;
+$sidebar-link:                  $dark-text !default;
+$sidebar-link-hover-bg:         rgba($white, .07) !default;
+$sidebar-link-hover-text:       $dark-text-strong !default;
+$sidebar-link-active-bg:        rgba($white, .11) !default;
+$sidebar-link-active-border:    transparent !default;
+$sidebar-link-active-side:      $brand-highlight !default;
+$sidebar-link-active-text:      $dark-text-strong !default;
 $sidebar-switch-top-position:   1px !default;
 $sidebar-switch-size:           18px !default;
 
