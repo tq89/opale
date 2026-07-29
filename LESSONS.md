@@ -75,7 +75,75 @@ Các ứng viên bị loại và lý do:
 | `#9b2423` | 7.86:1 | Ngả nâu, giảm nhận diện đỏ PCCC |
 | `#b71c1c` (Material Red 800) | 6.57:1 | Không thuộc chuẩn an toàn nào |
 
+## Quyết định: giao diện theo phong cách Woffice
+
+Thiết kế lại theo ảnh mẫu giao diện Woffice (skin *celestial*), giữ nguyên
+kiến trúc SCSS sẵn có và chỉ thay design token + tinh chỉnh component.
+
+Ràng buộc nền tảng: theme Redmine **chỉ can thiệp được CSS**, không sửa được
+HTML. Cấu trúc Redmine 7.0.0 là cố định:
+
+```
+#wrapper › #top-menu › #header › #main › #sidebar › #content › #footer
+```
+
+Vì vậy tái tạo được phong cách thị giác (khung tối, card, bo góc, kiểu chữ)
+nhưng không tái tạo được các widget riêng của Woffice (Poll, Groups, Upcoming
+Birthdays) — Redmine không có dữ liệu tương ứng.
+
+Token đã áp dụng:
+
+| Token | Giá trị |
+|---|---|
+| Primary / accent | `#3146c5` / `#f161a1` |
+| Nền trang / bề mặt | `#f4f5f6` / `#fff` |
+| Chữ / chữ phụ | `#131313` / `#667085` |
+| Success / danger / warning | `#21bd98` / `#eb5757` / `#f78915` |
+| Bo góc: base / large / pill | 10px / 15px / 25px |
+| Shadow card | `0 10px 50px 0 rgba(19,19,19,.1)` |
+
 ## Bài học
+
+- **Kiểm tra subset tiếng Việt trước khi chọn webfont.** Ảnh mẫu dùng Poppins,
+  nhưng Google Fonts chỉ phát hành Poppins với subset `latin`, `latin-ext` và
+  `devanagari`. Toàn bộ nguyên âm có dấu tiếng Việt nằm ở khối U+1EA0–U+1EF9,
+  không thuộc `latin-ext`, nên chúng sẽ rơi sang font dự phòng và phá vỡ nhịp
+  chữ. Đã thay bằng **Be Vietnam Pro** — cùng phong cách geometric sans, có
+  subset `vietnamese`. Cách kiểm chứng nhanh một font bất kỳ:
+  `curl "https://fonts.googleapis.com/css2?family=<Ten>:wght@400" | grep vietnamese`
+  (phải kèm User-Agent của trình duyệt, nếu không Google trả về định dạng cũ).
+  Font được self-host trong `webfonts/` để bản cài nội bộ không phụ thuộc CDN.
+
+- **Phân biệt `$body-bg` với `$surface-bg`.** Trước đây nền trang là màu trắng
+  nên `$body-bg` bị dùng lẫn cho hai vai trò: nền trang *và* nền của các bề mặt
+  nổi (dropdown, dialog, tooltip, datepicker, tab đang mở). Khi nền trang
+  chuyển sang xám, 26 chỗ trong `components/` lập tức sai màu. Nay `$body-bg`
+  chỉ dành cho `body`, mọi bề mặt nổi dùng `$surface-bg`. Khi đổi nền trang,
+  luôn rà `grep -rn 'variables.\$body-bg' components/` trước.
+
+- **Bảng màu thiết kế không đương nhiên đạt chuẩn tiếp cận.** Bảng màu Woffice
+  có 3 cặp dưới WCAG AA: chữ phụ `#8590a6` trên nền trang chỉ đạt 2.94:1, và
+  `#f161a1` với chữ trắng chỉ 3.02:1. Cách xử lý giữ được cả hai mục tiêu: giữ
+  màu gốc cho **bề mặt và ký hiệu**, dùng biến thể tối hơn (`#667085`,
+  `#d81b60`) cho **mọi chỗ có chữ**. Nhận diện không đổi, mọi cặp đạt AA.
+
+- **Thêm shadow thì phải reset trong bản in.** `components/_print.scss` không
+  reset `box-shadow`, nên card mới sẽ in ra bóng xám tốn mực. Bản in đã ẩn sẵn
+  `#top-menu`, `#header`, `#sidebar` nên khung tối không thành mảng đen, nhưng
+  card thì cần tự xử lý.
+
+- **Nền tối phải reset ở cả trạng thái `.nosidebar`.** `#main.nosidebar #sidebar`
+  reset `margin`, `padding`, `border` nhưng không reset `background`, nên nền
+  tối vẫn dính lại trên những trang không có sidebar.
+
+- **Lệnh lint của dự án từng bỏ sót 16/58 file.** `stylelint src/sass/**/*.scss`
+  không được đặt trong dấu nháy, nên shell (không bật `globstar`) rút `**`
+  thành `*` và chỉ quét đúng một cấp thư mục con — bỏ qua cả `_variables.scss`,
+  `application.scss` và toàn bộ `plugins/`. Đã thêm dấu nháy để stylelint tự
+  phân giải glob. Hệ quả: `npm run lint` báo pass trong khi husky lại chặn
+  commit, vì lint-staged kiểm tra đúng file được stage.
+
+
 
 - **Không tạo thư mục con mới trong repo theme.** Redmine cài theme bằng cách
   đặt nguyên repo vào `{redmine}/public/themes/opale`, và asset pipeline

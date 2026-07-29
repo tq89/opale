@@ -25,7 +25,7 @@
 
 .ui-widget-content {
   border: 1px solid variables.$panel-border;
-  background: variables.$body-bg;
+  background: variables.$surface-bg;
   color: variables.$text-color;
 
   a {
@@ -128,7 +128,7 @@
 }
 
 .ui-sortable-helper {
-  background-color: variables.$body-bg;
+  background-color: variables.$surface-bg;
 
   @include shadows.nice-shadow(4);
 }
@@ -169,7 +169,7 @@
 
 .modal {
   z-index: 50;
-  background: variables.$body-bg;
+  background: variables.$surface-bg;
 
   h3.title {
     display: none;
@@ -278,8 +278,8 @@ img.ui-datepicker-trigger {
     table-layout: fixed;
 
     .ui-state-default {
-      border-color: variables.$body-bg;
-      background: variables.$body-bg;
+      border-color: variables.$surface-bg;
+      background: variables.$surface-bg;
     }
 
     .ui-state-focus,

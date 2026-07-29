@@ -285,7 +285,7 @@ p.subtitle {
   &.ui-sortable-helper {
     @include shadows.nice-shadow(4);
 
-    background: variables.$body-bg;
+    background: variables.$surface-bg;
   }
 }
 
@@ -313,8 +313,9 @@ a.close-icon:not(:has(svg)) {
     &:not(.block-welcome, .block-projectinformation, .block-text, .block-text_async) {
       padding: variables.$panel-body-padding;
       border: 1px solid variables.$panel-border;
-      border-radius: variables.$border-radius-base;
+      border-radius: variables.$panel-border-radius;
       background-color: variables.$panel-bg;
+      box-shadow: variables.$panel-shadow;
       color: variables.$panel-color;
       font-size: .92em;
       overflow-wrap: break-word;
@@ -340,11 +341,11 @@ a.close-icon:not(:has(svg)) {
 
 #content table.filecontent {
   width: 100%;
-  background: variables.$body-bg;
+  background: variables.$surface-bg;
 
   th.filename {
     border-color: variables.$brand-primary;
-    border-bottom-color: color.adjust(variables.$body-bg, $lightness: -10%);
+    border-bottom-color: color.adjust(variables.$surface-bg, $lightness: -10%);
     background-color: variables.$brand-primary;
     color: variables.$brand-text;
   }
@@ -359,8 +360,8 @@ a.close-icon:not(:has(svg)) {
   }
 
   th.line-num {
-    border-color: color.adjust(variables.$body-bg, $lightness: -10%);
-    background-color: color.adjust(variables.$body-bg, $lightness: -5%);
+    border-color: color.adjust(variables.$surface-bg, $lightness: -10%);
+    background-color: color.adjust(variables.$surface-bg, $lightness: -5%);
     color: variables.$gray-750;
   }
 
@@ -376,10 +377,10 @@ a.close-icon:not(:has(svg)) {
   }
 
   tr:hover {
-    background-color: color.adjust(variables.$body-bg, $lightness: -2%);
+    background-color: color.adjust(variables.$surface-bg, $lightness: -2%);
 
     th.line-num {
-      background-color: color.adjust(variables.$body-bg, $lightness: -10%);
+      background-color: color.adjust(variables.$surface-bg, $lightness: -10%);
     }
   }
 
@@ -836,7 +837,7 @@ div.table-list.boards {
       padding: variables.$panel-body-padding;
       border-top: 1px solid variables.$bubble-border;
       border-radius: 0 0 variables.$panel-border-radius variables.$panel-border-radius;
-      background: variables.$body-bg;
+      background: variables.$surface-bg;
     }
 
     .contextual {

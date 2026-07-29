@@ -41,6 +41,15 @@
     overflow-x: visible;
   }
 
+  // Cards are a screen device: on paper the shadow only wastes ink and the
+  // rounded corners serve no purpose.
+  .autoscroll,
+  .box,
+  .mypage-box {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   a {
     // stylelint-disable declaration-no-important
     padding: 0 !important;

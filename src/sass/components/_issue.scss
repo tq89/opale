@@ -132,7 +132,7 @@
           margin: 0 (-(variables.$issue-padding)) (-(variables.$issue-padding));
           padding: variables.$padding-wiki;
           border-top: 1px solid variables.$issue-border;
-          background: variables.$body-bg;
+          background: variables.$surface-bg;
         }
       }
     }
@@ -331,7 +331,7 @@ div#sticky-issue-header {
   padding: variables.$padding-large-vertical variables.$padding-small-horizontal;
   border-bottom: 1px solid variables.$issue-border;
   border-radius: 0;
-  background-color: variables.$body-bg;
+  background-color: variables.$surface-bg;
   box-shadow: variables.$toc-shadow;
   font-size: variables.$font-size-small;
 
@@ -409,7 +409,7 @@ div.thumbnails {
     margin-right: 2px;
     border: 1px solid variables.$gray-400;
     border-radius: variables.$border-radius-base;
-    background-color: variables.$body-bg;
+    background-color: variables.$surface-bg;
 
     &:hover {
       border-color: variables.$gray-600;
@@ -898,7 +898,7 @@ span.private {
     > .wiki {
       padding: variables.$padding-base-vertical variables.$padding-base-horizontal;
       border-top: 1px solid variables.$bubble-border;
-      background-color: variables.$body-bg;
+      background-color: variables.$surface-bg;
     }
   }
 }
