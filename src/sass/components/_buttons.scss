@@ -8,7 +8,7 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"],
 button {
-  @include variants.button-size(variables.$btn-padding-vertical, variables.$btn-padding-horizontal, variables.$font-size-base, variables.$line-height-base, variables.$border-radius-base);
+  @include variants.button-size(variables.$btn-padding-vertical, variables.$btn-padding-horizontal, variables.$font-size-base, variables.$line-height-base, variables.$btn-border-radius);
 
   display: inline-block;
   margin-bottom: 0;
@@ -111,7 +111,7 @@ p.buttons,
       background-color variables.$transition-time ease-in-out,
       color variables.$transition-time ease-in-out;
     border: 1px solid;
-    border-radius: variables.$border-radius-base;
+    border-radius: variables.$btn-border-radius;
     font-size: variables.$font-size-base;
     vertical-align: top;
   }

@@ -53,12 +53,15 @@
   #main & {
     position: relative;
     padding: variables.$padding-side variables.$sidebar-padding-horizontal;
+    background-color: variables.$sidebar-bg;
+    color: variables.$sidebar-text;
   }
 
   #main.nosidebar & {
     margin: 0;
     padding: 0;
     border: 0 none;
+    background: none;
 
     @if variables.$css-grid-layout {
       width: 0;
@@ -90,18 +93,27 @@
     @if not variables.$flexbox-layout {
       padding-bottom: variables.$padding-side * 3;
     }
+  }
 
-    @if variables.$sidebar-position == "left" {
-      border-right: 1px solid variables.$sidebar-link-active-border;
-      box-shadow: inset -9px 0 6px -6px rgb(0 0 0 / .05);
-    } @else {
-      border-left: 1px solid variables.$sidebar-link-active-border;
-      box-shadow: inset 9px 0 6px -6px rgb(0 0 0 / .05);
-    }
+  // The dark surface separates the sidebar from the content on its own, so the
+  // divider and the inset shadow that carried that job on a light background
+  // are no longer needed.
+
+  h3,
+  h4 {
+    color: variables.$sidebar-heading-text;
   }
 
   h3 {
     margin-top: variables.$line-height-computed * 1.5;
+  }
+
+  a {
+    color: variables.$sidebar-link;
+
+    &:hover {
+      color: variables.$sidebar-link-hover-text;
+    }
   }
 
   #sidebar-wrapper > h3:first-child,
@@ -152,16 +164,14 @@
             background-color: variables.$sidebar-link-active-bg;
             color: variables.$sidebar-link-active-text;
 
+            // Only the accent edge marks the active item; on a dark surface the
+            // light bleed and drop shadow of the light layout would read as
+            // artefacts.
             @if variables.$sidebar-position == "left" {
-              margin-right: -1px;
-              border-right-color: variables.$body-bg;
               border-left-color: variables.$sidebar-link-active-side;
-              box-shadow: -3px 1px 2px rgb(0 0 0 / .1);
             } @else {
               margin-left: -(variables.$sidebar-padding-horizontal + 1px);
               border-right-color: variables.$sidebar-link-active-side;
-              border-left-color: variables.$body-bg;
-              box-shadow: 3px 1px 2px rgb(0 0 0 / .1);
             }
           }
         }

@@ -33,7 +33,7 @@
     min-width: 150px;
     overflow: hidden;
     border-radius: variables.$border-radius-base;
-    background: variables.$body-bg;
+    background: variables.$surface-bg;
   }
 
   &-items {
@@ -179,7 +179,7 @@ div.dropdown-content {
 
   border: none;
   border-radius: variables.$border-radius-base;
-  background-color: variables.$body-bg;
+  background-color: variables.$surface-bg;
   color: variables.$gray-750;
 
   li {

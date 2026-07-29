@@ -25,7 +25,7 @@
 
 .ui-widget-content {
   border: 1px solid variables.$panel-border;
-  background: variables.$body-bg;
+  background: variables.$surface-bg;
   color: variables.$text-color;
 
   a {
@@ -128,7 +128,7 @@
 }
 
 .ui-sortable-helper {
-  background-color: variables.$body-bg;
+  background-color: variables.$surface-bg;
 
   @include shadows.nice-shadow(4);
 }
@@ -153,8 +153,10 @@
         color: variables.$pagination-hover-color;
       }
 
+      // jQuery UI 1.13, which Redmine 7 ships, dropped the 222222 sprite; 444444
+      // is its replacement for the dark icon set.
       .ui-icon {
-        background-image: url("../../../stylesheets/jquery/images/ui-icons_222222_256x240.png");
+        background-image: url("../../../stylesheets/jquery/images/ui-icons_444444_256x240.png");
       }
     }
   }
@@ -169,7 +171,7 @@
 
 .modal {
   z-index: 50;
-  background: variables.$body-bg;
+  background: variables.$surface-bg;
 
   h3.title {
     display: none;
@@ -278,8 +280,8 @@ img.ui-datepicker-trigger {
     table-layout: fixed;
 
     .ui-state-default {
-      border-color: variables.$body-bg;
-      background: variables.$body-bg;
+      border-color: variables.$surface-bg;
+      background: variables.$surface-bg;
     }
 
     .ui-state-focus,

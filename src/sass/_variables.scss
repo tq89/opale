@@ -29,19 +29,19 @@ $wiki-page-more-vertical-space: true !default;
 
 // Colors
 
-$blue:                          #169 !default;
+$blue:                          #3146c5 !default;
 $indigo:                        #4e65e5 !default;
 $purple:                        #614ba6 !default;
-$pink:                          #eb5286 !default;
-$red:                           #e5123d !default;
-$orange:                        #fc8c12 !default;
+$pink:                          #f161a1 !default;
+$red:                           #eb5757 !default;
+$orange:                        #f78915 !default;
 $yellow:                        #ffc107 !default;
-$green:                         #029934 !default;
+$green:                         #21bd98 !default;
 $teal:                          #00b3ad !default;
 
 $white:                         #fff !default;
-$black:                         #000 !default;
-$gray:                          hsl(color.channel($indigo, 'hue', $space: hsl), 20%, 85%) !default;
+$black:                         #131313 !default;
+$gray:                          hsl(220deg 14% 85%) !default;
 
 $shade-map: (
   50:                           87.5%,
@@ -79,9 +79,29 @@ $gray-800:                      shade($gray, 800) !default;
 $gray-900:                      shade($gray, 900) !default;
 $gray-950:                      shade($gray, 950) !default;
 
-$brand-primary:                 #628db6 !default;
+$brand-primary:                 $blue !default;
 $brand-text:                    $white !default;
 $brand-accent:                  shade($brand-primary, 50) !default;
+
+// Secondary accent, used to make a single element stand out on a surface that
+// already carries the primary colour: the current day, an active sidebar item,
+// a highlighted badge.
+// $pink is the identity colour and only reaches a 3.02:1 ratio against white,
+// so it is reserved for surfaces and markers that carry no small text. Anything
+// that has to stay readable uses the darker variant instead, which reaches
+// 4.95:1 and clears WCAG AA.
+$brand-highlight:               $pink !default;
+$brand-highlight-strong:        #d81b60 !default;
+$brand-highlight-text:          $white !default;
+
+// Dark surfaces (sidebar, inverted panels).
+// Built from the primary hue rather than a neutral black, so the rail reads as
+// part of the palette instead of a slab dropped onto it, and so it follows if
+// the primary colour is ever changed.
+$dark-bg:                       hsl(color.channel($blue, 'hue', $space: hsl), 18%, 12%) !default;
+$dark-text:                     #c9ccd4 !default;
+$dark-text-strong:              $white !default;
+$dark-border:                   rgba($white, .08) !default;
 
 $brand-info:                    $blue !default;
 $brand-success:                 $green !default;
@@ -98,11 +118,16 @@ $state-danger:                  shade($brand-danger, 100) !default;
 
 // Scaffolding
 
-$body-bg:                       $white !default;
-$text-color:                    $gray-800 !default;
+$body-bg:                       #f4f5f6 !default;
+$surface-bg:                    $white !default;
+$text-color:                    $dark-bg !default;
+
+// Woffice greys its secondary text to #8590a6, which only reaches 2.94:1 on the
+// page background. This is the same hue darkened until it clears AA at 4.56:1.
+$text-muted:                    #667085 !default;
 
 $link-color:                    $blue !default;
-$link-hover-color:              $red !default;
+$link-hover-color:              $brand-highlight-strong !default;
 $link-hover-decoration:         underline !default;
 $link-closed-decoration:        line-through !default;
 $link-color-issue-closed:       $gray-750 !default;
@@ -112,7 +137,8 @@ $link-color-user-locked:        $gray-750 !default;
 
 // Typography
 
-$font-family-sans-serif:        system-ui,
+$font-family-sans-serif:        "Be Vietnam Pro",
+                                system-ui,
                                 /* macOS 10.11-10.12 */ -apple-system,
                                 /* Windows 6+ */ Segoe UI,
                                 /* Android 4+ */ Roboto,
@@ -194,9 +220,10 @@ $padding-small-horizontal:      10px !default;
 $padding-side:                  20px !default;
 $padding-wiki:                  20px !default;
 
-$border-radius-base:            3px !default;
-$border-radius-large:           4px !default;
-$border-radius-small:           2px !default;
+$border-radius-base:            10px !default;
+$border-radius-large:           15px !default;
+$border-radius-small:           6px !default;
+$border-radius-pill:            25px !default;
 
 $hr-border:                     $gray-600 !default;
 $abbr-border-color:             $gray-600 !default;
@@ -453,6 +480,7 @@ $btn-font-weight:               normal !default;
 $btn-padding-vertical:          3px !default;
 $btn-padding-horizontal:        12px !default;
 $btn-padding-horizontal-small:  8px !default;
+$btn-border-radius:             $border-radius-pill !default;
 
 $btn-link-color:                $link-color !default;
 $btn-link-bg:                   $body-bg !default;
@@ -518,7 +546,7 @@ $input-bg-disabled:             $gray-300 !default;
 $input-color:                   $text-color !default;
 $input-border:                  $gray-500 !default;
 
-$input-border-radius:           $border-radius-small !default;
+$input-border-radius:           $border-radius-base !default;
 $input-border-radius-large:     $border-radius-large !default;
 
 $input-border-focus:            color.adjust($brand-primary, $saturation: 25%) !default;
@@ -548,15 +576,18 @@ $check-list-offset-top:         $input-padding-vertical + 1px;
 
 // Top
 
-$top-menu-bg:                   shade($brand-primary, 700) !default;
-$top-menu-text:                 shade($brand-primary, 100) !default;
-$top-menu-link:                 shade($brand-primary, 100) !default;
-$top-menu-link-hover:           shade($brand-primary, 50) !default;
+// The reference keeps the whole top strip white and lets the dark sidebar carry
+// the contrast, so the top menu and the header share the surface colour instead
+// of the brand colour.
+$top-menu-bg:                   $surface-bg !default;
+$top-menu-text:                 $text-muted !default;
+$top-menu-link:                 $text-color !default;
+$top-menu-link-hover:           $brand-primary !default;
 
-$header-bg:                     $brand-primary !default;
-$header-text:                   $brand-text !default;
-$header-link:                   $brand-text !default;
-$header-root:                   $brand-accent !default;
+$header-bg:                     $surface-bg !default;
+$header-text:                   $text-color !default;
+$header-link:                   $text-color !default;
+$header-root:                   $text-muted !default;
 $header-padding-vertical:       10px !default;
 $header-padding-horizontal:     $padding-side !default;
 $header-title-size:             $font-size-h3 !default;
@@ -564,20 +595,25 @@ $header-title-line-height:      $line-height-computed * 1.5 !default;
 
 $responsive-header-height:      54px !default;
 
-$flyout-menu-bg:                shade($header-bg, 700) !default;
-$flyout-menu-text:              $white !default;
-$flyout-menu-link:              $white !default;
-$flyout-menu-link-active-bg:    shade($header-bg, 50) !default;
-$flyout-menu-link-active:       $text-color !default;
-$flyout-menu-header-bg:         shade($header-bg, 800) !default;
-$flyout-menu-header-border:     shade($header-bg, 800) !default;
-$flyout-menu-header-text:       $white !default;
+// The responsive flyout is the mobile counterpart of the sidebar, so it takes
+// the same dark surface rather than deriving from the now-white header.
+$flyout-menu-bg:                $dark-bg !default;
+$flyout-menu-text:              $dark-text !default;
+$flyout-menu-link:              $dark-text-strong !default;
+$flyout-menu-link-hover:        $brand-highlight !default;
+$flyout-menu-link-active-bg:    rgba($white, .11) !default;
+$flyout-menu-link-active:       $dark-text-strong !default;
+$flyout-menu-header-bg:         $dark-bg !default;
+$flyout-menu-header-border:     $dark-border !default;
+$flyout-menu-header-text:       $dark-text-strong !default;
 
-$quick-search-label-bg:         $top-menu-bg !default;
+// The search sits on the white header now, so the label needs the page grey to
+// stay visible, and both halves round into a single pill.
+$quick-search-label-bg:         $body-bg !default;
 $quick-search-width:            200px !default;
 $quick-search-border:           $input-border !default;
-$quick-search-border-focus:     shade($header-bg, 800) !default;
-$quick-search-border-radius:    0 $border-radius-small $border-radius-small 0 !default;
+$quick-search-border-focus:     $brand-primary !default;
+$quick-search-border-radius:    0 $border-radius-pill $border-radius-pill 0 !default;
 $quick-search-box-width:        300px !default;
 $quick-search-dropdown-bg:      $body-bg !default;
 $quick-search-dropdown-border:  $gray-400 !default;
@@ -588,12 +624,12 @@ $logo-position-horizontal:      $header-padding-horizontal !default;
 $logo-position-vertical:        center !default;
 $logo-space:                    $header-padding-vertical !default;
 
-$main-menu-bg:                  $gray-100 !default;
+$main-menu-bg:                  $surface-bg !default;
 $main-menu-bg-hover:            $gray-100 !default;
 $main-menu-bg-active:           transparent !default;
-$main-menu-link:                $gray-900 !default;
-$main-menu-link-active:         $black !default;
-$main-menu-border:              $gray-400 !default;
+$main-menu-link:                $text-muted !default;
+$main-menu-link-active:         $brand-primary !default;
+$main-menu-border:              $gray-300 !default;
 $main-menu-shadow-hover:        $gray-600 !default;
 $main-menu-shadow-width:        3px !default;
 $main-menu-shadow-active:       $brand-primary !default;
@@ -643,12 +679,16 @@ $sidebar-width:                 270px !default;
 $sidebar-padding-vertical:      $padding-base-vertical !default;
 $sidebar-padding-horizontal:    $padding-side !default;
 $sidebar-width-computed:        $sidebar-width - ($sidebar-padding-horizontal * 2) - 1px !default;
-$sidebar-link-hover-bg:         $gray-200 !default;
-$sidebar-link-hover-text:       $gray-900 !default;
-$sidebar-link-active-bg:        $body-bg !default;
-$sidebar-link-active-border:    $gray-400 !default;
-$sidebar-link-active-side:      $red !default;
-$sidebar-link-active-text:      $gray-950 !default;
+$sidebar-bg:                    $dark-bg !default;
+$sidebar-text:                  $dark-text !default;
+$sidebar-heading-text:          $dark-text-strong !default;
+$sidebar-link:                  $dark-text !default;
+$sidebar-link-hover-bg:         rgba($white, .07) !default;
+$sidebar-link-hover-text:       $dark-text-strong !default;
+$sidebar-link-active-bg:        rgba($white, .11) !default;
+$sidebar-link-active-border:    transparent !default;
+$sidebar-link-active-side:      $brand-highlight !default;
+$sidebar-link-active-text:      $dark-text-strong !default;
 $sidebar-switch-top-position:   1px !default;
 $sidebar-switch-size:           18px !default;
 
@@ -692,11 +732,10 @@ $panel-body-padding-vertical:   15px !default;
 $panel-body-padding-horizontal: 15px !default;
 $panel-body-padding:            $panel-body-padding-vertical $panel-body-padding-horizontal !default;
 $panel-color:                   $text-color !default;
-$panel-bg:                      $gray-50 !default;
-$panel-border:                  $gray-400 !default;
-$panel-border-radius:           $border-radius-base !default;
-$panel-shadow:                  0 1px 2px rgba($black, .07),
-                                0 3px 8px rgba($black, .04) !default;
+$panel-bg:                      $surface-bg !default;
+$panel-border:                  transparent !default;
+$panel-border-radius:           $border-radius-large !default;
+$panel-shadow:                  0 10px 50px 0 rgba($black, .1) !default;
 
 
 // Tooltips

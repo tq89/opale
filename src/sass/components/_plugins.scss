@@ -595,7 +595,7 @@ body div.banner_area {
     margin: -(variables.$line-height-computed * .5 + 1px) (variables.$bubble-padding-horizontal - variables.$padding-small-vertical) 0;
     float: right;
     border: 0;
-    background-color: variables.$body-bg;
+    background-color: variables.$surface-bg;
     text-align: right;
   }
 }

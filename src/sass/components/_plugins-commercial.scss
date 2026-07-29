@@ -55,7 +55,7 @@ html.agile-board-fullscreen .icon.icon-fullscreen {
   .agile-board {
     table.list.issues-board {
       tbody tr {
-        background-color: variables.$body-bg;
+        background-color: variables.$surface-bg;
 
         > td.issue-status-col {
           padding: 0;

@@ -149,6 +149,18 @@ body {
       background-color: variables.$flyout-menu-bg;
       color: variables.$flyout-menu-text;
 
+      // The panel carries the user link and whatever the script copies over
+      // from the sidebar, none of which is covered by the rules below. Left on
+      // the default link colour they sit at 2.49:1 against this surface and
+      // disappear into it.
+      a {
+        color: variables.$flyout-menu-link;
+
+        &:hover {
+          color: variables.$flyout-menu-link-hover;
+        }
+      }
+
       .search-magnifier {
         display: none;
       }

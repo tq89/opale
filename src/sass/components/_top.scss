@@ -231,8 +231,8 @@
       display: inline-block;
       height: variables.$input-height-base;
       margin-right: -5px;
-      padding: 0 variables.$padding-small-horizontal;
-      border-radius: variables.$border-radius-base 0 0 variables.$border-radius-base;
+      padding: 0 variables.$padding-small-horizontal 0 (variables.$padding-base-horizontal);
+      border-radius: variables.$border-radius-pill 0 0 variables.$border-radius-pill;
       background-color: variables.$quick-search-label-bg;
     }
 

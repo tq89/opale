@@ -62,7 +62,7 @@ $tabs-height: variables.$line-height-computed + variables.$tab-padding-vertical 
     right: 0;
     width: $tabs-buttons-width;
     border-bottom: 1px solid variables.$tab-border;
-    background-color: variables.$body-bg;
+    background-color: variables.$surface-bg;
 
     > button {
       width: 50%;
@@ -74,7 +74,7 @@ $tabs-height: variables.$line-height-computed + variables.$tab-padding-vertical 
       border: 0 none;
       border-radius: 0;
       opacity: variables.$icon-opacity;
-      background-color: variables.$body-bg;
+      background-color: variables.$surface-bg;
       background-repeat: no-repeat;
       background-position: center center;
       box-shadow: none;
