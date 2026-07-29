@@ -36,11 +36,9 @@ table.list {
     color: variables.$gray-750;
     vertical-align: bottom;
 
-    @if variables.$table-list-header-bg == variables.$body-bg {
-      @at-root .box & {
-        background-color: variables.$panel-bg;
-      }
-    }
+    // The page background is the grey and the card is the white one, so the
+    // header keeps the grey to stay told apart from the rows. Matching it to
+    // the card, as was needed when both were white, would flatten it again.
 
     a {
       color: variables.$gray-900;

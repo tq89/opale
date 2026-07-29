@@ -85,7 +85,19 @@ img {
 .autoscroll {
   position: relative;
   margin-bottom: variables.$line-height-computed;
+  padding: variables.$panel-body-padding;
   overflow-x: auto;
+  border-radius: variables.$panel-border-radius;
+  background-color: variables.$panel-bg;
+  box-shadow: variables.$panel-shadow;
+
+  // Already inside a card: staying flat avoids stacking one on another.
+  .box & {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
 }
 
 
@@ -95,8 +107,9 @@ img {
   margin-bottom: variables.$line-height-computed;
   padding: variables.$panel-body-padding;
   border: 1px solid variables.$panel-border;
-  border-radius: variables.$border-radius-base;
+  border-radius: variables.$panel-border-radius;
   background-color: variables.$panel-bg;
+  box-shadow: variables.$panel-shadow;
   color: variables.$panel-color;
   overflow-wrap: break-word;
 
