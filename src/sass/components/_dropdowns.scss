@@ -34,6 +34,20 @@
     overflow: hidden;
     border-radius: variables.$border-radius-base;
     background: variables.$surface-bg;
+
+    // The panel floats over the page but sits inside #quick-search, so without
+    // a colour of its own it inherits the header's. That is white whenever the
+    // header carries a dark brand colour, leaving white text on this white
+    // panel. It paints its own surface, so it states its own text colour too.
+    color: variables.$text-color;
+
+    a {
+      color: variables.$link-color;
+
+      &:hover {
+        color: variables.$link-hover-color;
+      }
+    }
   }
 
   &-items {
