@@ -21,7 +21,7 @@
     "prepare": "husky",
     "build": "grunt",
     "watch": "grunt watch",
-    "lint:sass": "stylelint src/sass/**/*.scss",
+    "lint:sass": "stylelint \"src/sass/**/*.scss\"",
     "lint": "npm run -S lint:sass"
   },
   "devDependencies": {
